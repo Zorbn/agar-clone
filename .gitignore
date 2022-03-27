@@ -1,0 +1,4 @@
+# Project exclude paths
+/agar-client/dist/
+/agar-client/node_modules/
+/agar-server/node_modules/
