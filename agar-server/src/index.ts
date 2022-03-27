@@ -1,16 +1,16 @@
-import * as SocketIO from "socket.io";
-import * as Http from "http";
 import express from "express";
 import path from "path";
 import {Input, Player} from "./player";
 import {Food, UpdateFoods} from "./food";
 import {getRandomPos} from "./utils";
+import * as Http from "http";
+import {Server, Socket} from "socket.io";
 
 const port = 8080;
 
 const app = express();
 const httpServer = Http.createServer(app);
-const io = new SocketIO.Server(httpServer);
+const io = new Server(httpServer);
 
 const targetTps = 30;
 const tickTimeMs = 1000 / targetTps;
@@ -20,7 +20,7 @@ const arenaSize = 3000;
 
 let foods: Food[] = [];
 
-io.on("connection", (socket: SocketIO.Socket) => {
+io.on("connection", (socket: Socket) => {
     console.log(`Client connected: ${socket.id}`);
 
     Player.players[socket.id] = new Player(
